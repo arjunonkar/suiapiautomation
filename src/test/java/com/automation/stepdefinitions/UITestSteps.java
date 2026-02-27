@@ -31,12 +31,10 @@ public class UITestSteps {
 
         driver.get(url);
 
-        // Force remove vignette redirect
         if (driver.getCurrentUrl().contains("google_vignette")) {
             driver.get("https://automationexercise.com/");
         }
 
-        // Extra protection
         if (driver.getCurrentUrl().contains("#google_vignette")) {
             driver.navigate().to("https://automationexercise.com/");
         }
@@ -49,7 +47,7 @@ public class UITestSteps {
 
     @When("User clicks Products")
     public void user_clicks_products() {
-        productsPage.clickProducts();
+        homePage.clickProducts();
     }
 
     @Then("All Products page should be visible")
