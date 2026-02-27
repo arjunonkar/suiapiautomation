@@ -25,17 +25,12 @@ jobs:
       - name: Run Tests
         run: mvn clean test
 
-      # Generate Allure Report using official action
       - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1.7
-        with:
-          allure_results: target/allure-results
-          allure_report: allure-report
+        run: mvn allure:report
 
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
-          publish_dir: allure-report
+          publish_dir: target/site/allure-maven-plugin
