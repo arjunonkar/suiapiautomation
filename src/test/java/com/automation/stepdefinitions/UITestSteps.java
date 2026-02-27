@@ -8,6 +8,10 @@ import io.cucumber.java.After;
 import io.cucumber.java.en.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import io.qameta.allure.Allure;
+import io.cucumber.java.Scenario;
+
+import java.io.ByteArrayInputStream;
 
 public class UITestSteps {
 
@@ -76,7 +80,17 @@ public class UITestSteps {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown(Scenario scenario) {
+
+        if (scenario.isFailed()) {
+            Allure.addAttachment(
+                    "Failure Screenshot",
+                    "image/png",
+                    new ByteArrayInputStream(DriverFactory.takeScreenshot()),
+                    ".png"
+            );
+        }
+
         DriverFactory.quitDriver();
     }
 }

@@ -4,6 +4,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 import java.time.Duration;
 
@@ -37,5 +39,9 @@ public class DriverFactory {
             driver.quit();
             driver = null;
         }
+    }
+
+    public static byte[] takeScreenshot() {
+        return ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.BYTES);
     }
 }
