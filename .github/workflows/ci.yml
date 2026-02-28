@@ -28,7 +28,7 @@ jobs:
         uses: browser-actions/setup-chrome@v1
 
       - name: Run Tests
-        run: mvn clean test
+        run: mvn clean test -Dheadless=true
 
       - name: Generate Allure Report
         run: mvn allure:report

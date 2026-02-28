@@ -1,8 +1,7 @@
 Feature: UI Automation - AutomationExercise Website
 
   Background:
-    Given User launches browser
-    And User navigates to "https://automationexercise.com"
+    Given User navigates to "https://automationexercise.com"
 
   @SearchProduct
   Scenario: Verify user can search products successfully

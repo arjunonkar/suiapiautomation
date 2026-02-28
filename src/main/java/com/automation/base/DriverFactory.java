@@ -11,14 +11,21 @@ import java.time.Duration;
 
 public class DriverFactory {
 
-    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 
     public static void initDriver() {
 
         WebDriverManager.chromedriver().setup();
 
         ChromeOptions options = new ChromeOptions();
-        options.addArguments("--headless=new");
+
+        // Read headless property (default false)
+        String headless = System.getProperty("headless", "false");
+
+        if (headless.equalsIgnoreCase("true")) {
+            options.addArguments("--headless=new");
+        }
+
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-notifications");
@@ -26,18 +33,23 @@ public class DriverFactory {
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--window-size=1920,1080");
 
-        driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        WebDriver webDriver = new ChromeDriver(options);
+
+        webDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        webDriver.manage().window().maximize();
+
+        driver.set(webDriver);
     }
 
     public static WebDriver getDriver() {
-        return driver;
+        return driver.get();
     }
 
     public static void quitDriver() {
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        WebDriver webDriver = driver.get();
+        if (webDriver != null) {
+            webDriver.quit();
+            driver.remove();
         }
     }
 

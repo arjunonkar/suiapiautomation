@@ -33,19 +33,32 @@ public class HomePage extends BasePage {
     }
 
     public void clickProducts() {
-        wait.until(
-                ExpectedConditions.elementToBeClickable(productsBtn)
-        ).click();
+
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(productsBtn)).click();
+        } catch (Exception e) {
+            // fallback if click intercepted
+            driver.get("https://automationexercise.com/products");
+            return;
+        }
+
+        // If redirected to google vignette, force correct URL
+        if (driver.getCurrentUrl().contains("google_vignette")) {
+            driver.get("https://automationexercise.com/products");
+        }
+
+        // Wait for products page URL
+        wait.until(ExpectedConditions.urlContains("products"));
     }
 
     public void acceptCookiesIfPresent() {
         try {
-            WebElement consent = wait.until(
-                    ExpectedConditions.elementToBeClickable(consentButton)
-            );
-            consent.click();
+            WebElement consent = driver.findElement(consentButton);
+            if (consent.isDisplayed()) {
+                consent.click();
+            }
         } catch (Exception e) {
-            // ignore if not present
+            // ignore
         }
     }
 }

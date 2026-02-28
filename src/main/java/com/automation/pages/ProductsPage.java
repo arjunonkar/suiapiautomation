@@ -14,7 +14,7 @@ public class ProductsPage extends BasePage {
     private WebDriver driver;
 
     // Locators
-    private By allProductsTitle = By.xpath("//h2[text()='All Products']");
+    private By allProductsTitle = By.xpath("//h2[contains(text(),'All Products')]");
     private By searchInput = By.id("search_product");
     private By searchButton = By.id("submit_search");
     private By searchedProductsTitle = By.xpath("//h2[text()='Searched Products']");
@@ -28,7 +28,11 @@ public class ProductsPage extends BasePage {
 
     // ================= VERIFY ALL PRODUCTS =================
     public boolean isAllProductsVisible() {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(allProductsTitle)).isDisplayed();
+        return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(
+                        By.xpath("//h2[text()='All Products']")
+                )
+        ).isDisplayed();
     }
 
     // ================= SEARCH PRODUCT =================

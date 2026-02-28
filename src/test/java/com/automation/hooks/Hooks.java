@@ -2,23 +2,29 @@ package com.automation.hooks;
 
 import com.automation.base.DriverFactory;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import io.qameta.allure.Allure;
+
+import java.io.ByteArrayInputStream;
 
 public class Hooks {
 
+    @Before
+    public void setUp() {
+        DriverFactory.initDriver();
+    }
+
     @After
-    public void takeScreenshotOnFailure(Scenario scenario) {
+    public void tearDown(Scenario scenario) {
 
         if (scenario.isFailed()) {
-
-            byte[] screenshot = ((TakesScreenshot)
-                    DriverFactory.getDriver())
-                    .getScreenshotAs(OutputType.BYTES);
-
-            scenario.attach(screenshot, "image/png",
-                    scenario.getName());
+            Allure.addAttachment(
+                    "Failure Screenshot",
+                    "image/png",
+                    new ByteArrayInputStream(DriverFactory.takeScreenshot()),
+                    ".png"
+            );
         }
 
         DriverFactory.quitDriver();
