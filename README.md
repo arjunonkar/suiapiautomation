@@ -79,7 +79,6 @@ suiapiautomation
 ├── pom.xml
 └── README.md
 
-
 ---
 
 ## ⚙️ Key Features
