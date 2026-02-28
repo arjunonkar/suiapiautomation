@@ -2,31 +2,28 @@ pipeline {
     agent any
 
     stages {
-
-        stage('Build') {
+        stage('API Tests') {
             steps {
-                bat 'mvn clean compile'
+                bat 'mvn clean test -Dcucumber.filter.tags="@API"'
             }
         }
 
-        stage('Run API Tests') {
+        stage('UI Tests') {
             steps {
-                bat 'mvn test -Dcucumber.filter.tags="@API"'
-            }
-        }
-
-        stage('Run UI Tests') {
-            steps {
-                bat 'mvn test -Dcucumber.filter.tags="@UI"'
+                bat 'mvn clean test -Dcucumber.filter.tags="@UI" -Dheadless=true'
             }
         }
     }
 
     post {
         always {
-            allure includeProperties: false,
-                   jdk: '',
-                   results: [[path: 'target/allure-results']]
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Build completed successfully!'
+        }
+        failure {
+            echo 'Build failed!'
         }
     }
 }

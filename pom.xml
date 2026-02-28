@@ -100,6 +100,8 @@
                             ${project.build.directory}/allure-results
                         </allure.results.directory>
                     </systemPropertyVariables>
+                    <forkCount>1</forkCount>
+                    <reuseForks>false</reuseForks>
                     <parallel>methods</parallel>
                     <threadCount>3</threadCount>
                     <useUnlimitedThreads>false</useUnlimitedThreads>

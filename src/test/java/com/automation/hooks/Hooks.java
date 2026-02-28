@@ -17,16 +17,13 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario) {
-
-        if (scenario.isFailed()) {
-            Allure.addAttachment(
-                    "Failure Screenshot",
-                    "image/png",
-                    new ByteArrayInputStream(DriverFactory.takeScreenshot()),
-                    ".png"
-            );
+        try {
+            if (scenario.isFailed()) {
+                byte[] screenshot = DriverFactory.takeScreenshot();
+                scenario.attach(screenshot, "image/png", scenario.getName());
+            }
+        } finally {
+            DriverFactory.quitDriver();
         }
-
-        DriverFactory.quitDriver();
     }
 }
