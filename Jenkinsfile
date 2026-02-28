@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('API Tests') {
             steps {
                 bat 'mvn clean test -Dcucumber.filter.tags="@API"'
@@ -10,14 +11,17 @@ pipeline {
 
         stage('UI Tests') {
             steps {
-                bat 'mvn clean test -Dcucumber.filter.tags="@UI" -Dheadless=true'
+                bat 'mvn test -Dcucumber.filter.tags="@UI" -Dheadless=true'
             }
         }
     }
 
     post {
         always {
-            echo 'Pipeline execution completed.'
+            echo 'Generating Allure Report...'
+            allure includeProperties: false,
+                   jdk: '',
+                   results: [[path: 'target/allure-results']]
         }
         success {
             echo 'Build completed successfully!'
