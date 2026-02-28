@@ -1,36 +1,32 @@
 pipeline {
     agent any
 
-    tools {
-        jdk 'JDK17'
-        maven 'Maven3'
-    }
-
     stages {
 
-        stage('Checkout Code') {
+        stage('Build') {
             steps {
-                checkout scm
+                bat 'mvn clean compile'
             }
         }
 
-        stage('Build & Run Tests') {
+        stage('Run API Tests') {
             steps {
-                bat 'mvn clean test -Dheadless=true'
+                bat 'mvn test -Dcucumber.filter.tags="@API"'
             }
         }
 
-        stage('Generate Allure Report') {
+        stage('Run UI Tests') {
             steps {
-                allure includeProperties: false,
-                       results: [[path: 'target/allure-results']]
+                bat 'mvn test -Dcucumber.filter.tags="@UI"'
             }
         }
     }
 
     post {
         always {
-            archiveArtifacts artifacts: 'target/**', allowEmptyArchive: true
+            allure includeProperties: false,
+                   jdk: '',
+                   results: [[path: 'target/allure-results']]
         }
     }
 }

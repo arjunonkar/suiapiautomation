@@ -2,7 +2,7 @@ Feature: UI Automation - AutomationExercise Website
 
   Background:
     Given User navigates to "https://automationexercise.com"
-
+  @UI
   @SearchProduct
   Scenario: Verify user can search products successfully
 
@@ -12,7 +12,7 @@ Feature: UI Automation - AutomationExercise Website
     When User searches for "Blue Top"
     Then Searched Products should be visible
 
-
+  @UI
   @AddToCart
   Scenario: Verify user can add multiple products to cart
 
