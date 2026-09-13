@@ -1,4 +1,4 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sat Sep 12 07:44:40 UTC 2026","Sat Sep 12 07:45:02 UTC 2026","21957","","UI Automation - AutomationExercise Website","","Verify user can add multiple products to cart","","Verify user can add multiple products to cart",""
-"passed","Sat Sep 12 07:44:40 UTC 2026","Sat Sep 12 07:44:56 UTC 2026","16082","","API Testing","","Get all products API","","Get all products API",""
-"passed","Sat Sep 12 07:44:40 UTC 2026","Sat Sep 12 07:44:58 UTC 2026","18201","","UI Automation - AutomationExercise Website","","Verify user can search products successfully","","Verify user can search products successfully",""
+"passed","Sun Sep 13 08:05:04 UTC 2026","Sun Sep 13 08:05:21 UTC 2026","17159","","UI Automation - AutomationExercise Website","","Verify user can add multiple products to cart","","Verify user can add multiple products to cart",""
+"passed","Sun Sep 13 08:05:04 UTC 2026","Sun Sep 13 08:05:18 UTC 2026","13722","","UI Automation - AutomationExercise Website","","Verify user can search products successfully","","Verify user can search products successfully",""
+"passed","Sun Sep 13 08:05:04 UTC 2026","Sun Sep 13 08:05:16 UTC 2026","11834","","API Testing","","Get all products API","","Get all products API",""
